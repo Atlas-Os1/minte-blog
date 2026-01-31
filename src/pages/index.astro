@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts'))
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout 
+  title="Building in Public - Minte.dev" 
+  description="Daily updates on building projects, experiments, and learnings in public."
+>
+  <div style="margin-bottom: 3rem;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem; color: #111827;">Building in Public</h1>
+    <p style="font-size: 1.125rem; color: #6b7280;">
+      Daily updates on projects, experiments, and learnings.
+    </p>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 2rem;">
+    {posts.length === 0 ? (
+      <p style="color: #6b7280; font-style: italic;">No posts yet. Check back soon!</p>
+    ) : (
+      posts.map((post) => (
+        <article style="border: 1px solid #e5e7eb; padding: 1.5rem; border-radius: 0.5rem; background: white;">
+          <h2 style="margin-bottom: 0.5rem;">
+            <a href={`/posts/${post.slug}`} style="color: #111827; text-decoration: none; font-size: 1.5rem;">
+              {post.data.title}
+            </a>
+          </h2>
+          <div style="color: #6b7280; font-size: 0.875rem; margin-bottom: 0.75rem;">
+            <time datetime={post.data.pubDate.toISOString()}>
+              {post.data.pubDate.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              })}
+            </time>
+          </div>
+          <p style="color: #4b5563; margin-bottom: 0.75rem;">
+            {post.data.description}
+          </p>
+          {post.data.tags.length > 0 && (
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              {post.data.tags.map(tag => (
+                <span style="background: #f3f4f6; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; color: #6b7280;">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </article>
+      ))
+    )}
+  </div>
+</BaseLayout>
