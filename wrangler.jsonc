@@ -1,0 +1,17 @@
+/**
+ * Wrangler configuration for Minte Blog (Astro static site)
+ * Deploys the built static assets from dist/ to Cloudflare Workers
+ */
+{
+  "name": "minte-blog",
+  "compatibility_date": "2026-02-03",
+  "assets": {
+    "directory": "./dist"
+  },
+  "routes": [
+    {
+      "pattern": "blog.minte.dev",
+      "custom_domain": true
+    }
+  ]
+}
