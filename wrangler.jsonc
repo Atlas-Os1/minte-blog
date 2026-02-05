@@ -3,7 +3,7 @@
  * Deploys the built static assets from dist/ to Cloudflare Workers
  */
 {
-  "name": "minte-blog",
+  "name": "minte-blog-worker",
   "compatibility_date": "2026-02-03",
   "assets": {
     "directory": "./dist"
