@@ -38,7 +38,8 @@ cat > "$FILEPATH" << EOF
 ---
 title: "${TITLE}"
 description: "Daily building in public log - ${DATE}"
-date: ${DATE}
+pubDate: ${DATE}
+author: "Flo"
 tags: ${TAGS}
 category: "${CATEGORY}"
 draft: false
